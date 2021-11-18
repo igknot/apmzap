@@ -52,7 +52,7 @@ func (zl zapLogger) Middleware(h http.Handler) http.Handler {
 		}
 		start := time.Now()
 		h.ServeHTTP(recorder, r)
-		duration := time.Since(start)
+		duration := time.Since(start).Nanoseconds()
 		traceContextFields := apmzap.TraceContext(r.Context())
 		
 		fields := append(
@@ -61,7 +61,7 @@ func (zl zapLogger) Middleware(h http.Handler) http.Handler {
 			zap.String("url.path", r.RequestURI),
 			zap.String("logger", zl.name),
 			zap.Int("http.response.status_code", recorder.Status),
-			zap.Duration("event.duration", duration),
+			zap.Int64("event.duration_nanoseconds", duration),
 			zap.Int("http.response.length", recorder.Length),
 			zap.String("client.address", r.RemoteAddr),
 		)
