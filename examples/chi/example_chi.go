@@ -5,19 +5,21 @@ import (
 
 	"github.com/go-chi/chi"
 	"github.com/igknot/apmzap/logger"
-	"go.elastic.co/apm/module/apmzap"
 	"go.elastic.co/apm/module/apmchi"
+	"go.elastic.co/apm/module/apmzap"
 	"go.uber.org/zap"
 )
 
 func main() {
 	r := chi.NewRouter()
 	r.Use(apmchi.Middleware())
-	log := zap.NewExample(zap.WrapCore((&apmzap.Core{}).WrapCore))
-	r.Use(logger.NewZapLogger("my-zap-logger",log))
+	log, _ := zap.NewProduction(zap.WrapCore((&apmzap.Core{}).WrapCore))
+	//figure out how to change time stamp format.
+	r.Use(logger.NewZapLogger("example-chi", log))
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("hello world"))
 	})
-
-	http.ListenAndServe(":3666", r)
+	port := "3666"
+	log.Info("ListenAndServe :" + port )
+	http.ListenAndServe(":"+port , r)
 }
