@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi"
-	"github.com/igknot/apmzap/logger"
+	"github.com/igknot/apmzap"
 	"go.elastic.co/apm/module/apmchi"
 	"go.elastic.co/apm/module/apmzap"
 	"go.uber.org/zap"

@@ -6,7 +6,7 @@ import (
 
 	"go.elastic.co/apm/module/apmgorilla"
 	 
-	"github.com/igknot/apmzap/logger"
+	"github.com/igknot/apmzap"
 	"go.elastic.co/apm/module/apmzap"
 	 
 	"go.uber.org/zap"
