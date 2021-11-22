@@ -15,7 +15,7 @@ func main() {
 	r.Use(apmchi.Middleware())
 	log, _ := zap.NewProduction(zap.WrapCore((&apmzap.Core{}).WrapCore))
 	//figure out how to change time stamp format.
-	r.Use(logger.NewZapLogger("example-chi", log))
+	r.Use(middleware.NewZapLogger("example-chi", log))
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("hello world"))
 	})

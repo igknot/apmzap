@@ -16,7 +16,7 @@ func main() {
 	router := mux.NewRouter()
 	apmgorilla.Instrument(router)
 	log := zap.NewExample(zap.WrapCore((&apmzap.Core{}).WrapCore))
-	router.Use(logger.NewZapLogger("my-zap-logger",log))
+	router.Use(middleware.NewZapLogger("my-zap-logger",log))
 	
 	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("hello world"))
